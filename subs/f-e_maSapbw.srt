@@ -1,0 +1,150 @@
+1
+00:00:00,000 --> 00:00:00,500
+
+
+2
+00:00:00,500 --> 00:00:03,730
+When modifying documents,
+MongoDB transaction statements
+
+3
+00:00:03,730 --> 00:00:08,039
+either obtain the right lock or
+abort the entire transaction.
+
+4
+00:00:08,039 --> 00:00:12,060
+For example, if Transaction
+1 writes to Document 1
+
+5
+00:00:12,060 --> 00:00:15,480
+but has not yet committed,
+when Transaction 2 tries
+
+6
+00:00:15,480 --> 00:00:17,450
+to write a Document
+1, Transaction 2
+
+7
+00:00:17,450 --> 00:00:20,130
+will abort with
+a write conflict.
+
+8
+00:00:20,130 --> 00:00:22,260
+This logic avoids
+deadlocking scenarios that
+
+9
+00:00:22,260 --> 00:00:25,250
+require manual intervention.
+
+10
+00:00:25,250 --> 00:00:28,100
+All reads can still occur
+when a write lock is taken,
+
+11
+00:00:28,100 --> 00:00:31,730
+and no read will see uncommitted
+writes, apart from those reads
+
+12
+00:00:31,730 --> 00:00:35,030
+within the transaction
+holding the write lock.
+
+13
+00:00:35,030 --> 00:00:36,920
+Once the transaction
+is committed,
+
+14
+00:00:36,920 --> 00:00:39,050
+all the write
+locks are released,
+
+15
+00:00:39,050 --> 00:00:43,860
+and other transactions can now
+successfully obtain the lock.
+
+16
+00:00:43,860 --> 00:00:47,500
+If Transaction 1
+writes to Document 1
+
+17
+00:00:47,500 --> 00:00:50,720
+and has committed, when
+Transaction 2 tries
+
+18
+00:00:50,720 --> 00:00:53,100
+to write to Document
+1, Transaction 2
+
+19
+00:00:53,100 --> 00:00:57,090
+can now successfully obtain
+the write lock and continue on.
+
+20
+00:00:57,090 --> 00:00:59,260
+When a write lock is
+taken on the document,
+
+21
+00:00:59,260 --> 00:01:01,780
+all rights not within
+a transaction context,
+
+22
+00:01:01,780 --> 00:01:05,470
+like a normal write or a find,
+will block behind the commit
+
+23
+00:01:05,470 --> 00:01:09,030
+an infinitely retry
+with backoff logic.
+
+24
+00:01:09,030 --> 00:01:10,990
+Write conflict
+exceptions can also
+
+25
+00:01:10,990 --> 00:01:13,840
+be found at the time
+the transaction commits.
+
+26
+00:01:13,840 --> 00:01:17,260
+This can happen if writes happen
+before the write lock was taken
+
+27
+00:01:17,260 --> 00:01:21,430
+but are not reflected in
+the transaction snapshot.
+
+28
+00:01:21,430 --> 00:01:24,610
+Write conflicts are classified
+as transient transaction
+
+29
+00:01:24,610 --> 00:01:25,390
+errors.
+
+30
+00:01:25,390 --> 00:01:27,130
+And when encountered,
+the transaction
+
+31
+00:01:27,130 --> 00:01:30,030
+is completely safe to retry.

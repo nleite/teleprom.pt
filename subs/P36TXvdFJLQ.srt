@@ -1,0 +1,391 @@
+1
+00:00:00,000 --> 00:00:00,840
+
+
+2
+00:00:00,840 --> 00:00:05,070
+The slow operation log produced
+by each individual MongoD
+
+3
+00:00:05,070 --> 00:00:08,340
+is a great resource
+for debugging purposes
+
+4
+00:00:08,340 --> 00:00:10,830
+Each operation that surpasses
+the defined slow ops
+
+5
+00:00:10,830 --> 00:00:13,890
+threshold by 100
+milliseconds gets
+
+6
+00:00:13,890 --> 00:00:17,100
+logged in the
+MongoD log file that
+
+7
+00:00:17,100 --> 00:00:19,320
+responded to such commands.
+
+8
+00:00:19,320 --> 00:00:23,130
+However, analyzing a lot of
+log files in a distributed
+
+9
+00:00:23,130 --> 00:00:27,290
+environments, like a sharded
+cluster might be challenging.
+
+10
+00:00:27,290 --> 00:00:30,260
+To address this
+issue, in MongoDB 4.0,
+
+11
+00:00:30,260 --> 00:00:34,700
+logging slow operations is not
+possible in the mongos as well.
+
+12
+00:00:34,700 --> 00:00:37,580
+A log message in MongoDB
+has the following anatomy.
+
+13
+00:00:37,580 --> 00:00:41,930
+It has a time stamp, the
+severity code, the component,
+
+14
+00:00:41,930 --> 00:00:47,690
+some contextual information,
+and the message we want to log.
+
+15
+00:00:47,690 --> 00:00:50,330
+The structure of these log
+messages is identical both
+
+16
+00:00:50,330 --> 00:00:54,100
+on mongos log
+files and MongoD's.
+
+17
+00:00:54,100 --> 00:00:57,270
+As of 4.0, slow
+queries will also
+
+18
+00:00:57,270 --> 00:01:01,710
+be logged not just system in
+mongos process execution log
+
+19
+00:01:01,710 --> 00:01:03,650
+messages.
+
+20
+00:01:03,650 --> 00:01:07,590
+All update operations,
+inserts, deletes
+
+21
+00:01:07,590 --> 00:01:10,290
+will be logged, expressing the
+number of documents affected
+
+22
+00:01:10,290 --> 00:01:13,610
+in each write commands, the
+number of shards affected,
+
+23
+00:01:13,610 --> 00:01:16,720
+and the time it
+took to complete it.
+
+24
+00:01:16,720 --> 00:01:20,170
+All of that information
+will be available to us
+
+25
+00:01:20,170 --> 00:01:23,640
+through the logs in our mongos.
+
+26
+00:01:23,640 --> 00:01:26,670
+Find commands and related
+get more cursor iteration
+
+27
+00:01:26,670 --> 00:01:30,360
+operations will also be logged
+if they surpass the slow MS
+
+28
+00:01:30,360 --> 00:01:32,170
+thresholds.
+
+29
+00:01:32,170 --> 00:01:35,950
+The number of return
+documents, execution time,
+
+30
+00:01:35,950 --> 00:01:38,860
+the originating commands,
+and the actual command
+
+31
+00:01:38,860 --> 00:01:41,410
+executed, as well as
+the number of shards
+
+32
+00:01:41,410 --> 00:01:45,600
+being implicated on the
+actual logged operation
+
+33
+00:01:45,600 --> 00:01:47,870
+will all be available.
+
+34
+00:01:47,870 --> 00:01:50,270
+For extended operation
+control of slow operations
+
+35
+00:01:50,270 --> 00:01:52,790
+across the shards
+with 4.0, we've
+
+36
+00:01:52,790 --> 00:01:55,130
+also added the capability
+of killing operations
+
+37
+00:01:55,130 --> 00:01:58,100
+across shards that
+are taking way
+
+38
+00:01:58,100 --> 00:02:01,040
+too much time from the mongos.
+
+39
+00:02:01,040 --> 00:02:03,350
+The ability to kill
+cursors in sessions
+
+40
+00:02:03,350 --> 00:02:06,500
+initiated in a shard cluster.
+
+41
+00:02:06,500 --> 00:02:08,500
+Let's assume that we've
+seen from our mongos
+
+42
+00:02:08,500 --> 00:02:12,760
+logs that there is a particular
+query taking way much more time
+
+43
+00:02:12,760 --> 00:02:17,650
+to complete than we
+originally anticipated just
+
+44
+00:02:17,650 --> 00:02:21,160
+on some get more command logs.
+
+45
+00:02:21,160 --> 00:02:24,850
+Using the current op or even
+the dollar current op admin
+
+46
+00:02:24,850 --> 00:02:27,850
+database aggregation
+command, we can track down
+
+47
+00:02:27,850 --> 00:02:30,130
+the infringing
+operation information,
+
+48
+00:02:30,130 --> 00:02:35,380
+like the op ID related
+with the offending query.
+
+49
+00:02:35,380 --> 00:02:38,290
+As a side note, the
+current op command
+
+50
+00:02:38,290 --> 00:02:41,410
+also allows us to filter
+the results of this command
+
+51
+00:02:41,410 --> 00:02:45,040
+to look for just local
+operations in mongos.
+
+52
+00:02:45,040 --> 00:02:48,950
+It's really nice for
+extending debugging.
+
+53
+00:02:48,950 --> 00:02:51,710
+Once we know the
+slow operations ID,
+
+54
+00:02:51,710 --> 00:02:56,300
+we can emit a kill
+operation in the mongos.
+
+55
+00:02:56,300 --> 00:03:00,030
+Then the mongos will stop
+iterating over the open cursor
+
+56
+00:03:00,030 --> 00:03:03,500
+to every single shard
+involved in the query
+
+57
+00:03:03,500 --> 00:03:07,730
+and send the kill operation
+to the individual shards.
+
+58
+00:03:07,730 --> 00:03:09,830
+The operation itself
+might take a bit longer
+
+59
+00:03:09,830 --> 00:03:11,780
+to be effectively
+killed depending
+
+60
+00:03:11,780 --> 00:03:14,240
+on the execution
+across the shards.
+
+61
+00:03:14,240 --> 00:03:17,300
+But that command will stop
+reporting back results
+
+62
+00:03:17,300 --> 00:03:20,120
+to the client and will
+get effectively removed
+
+63
+00:03:20,120 --> 00:03:22,230
+from the server.
+
+64
+00:03:22,230 --> 00:03:24,360
+The shard mechanism
+will also ensure
+
+65
+00:03:24,360 --> 00:03:29,240
+that commands that die
+in one single shard
+
+66
+00:03:29,240 --> 00:03:33,030
+get to die on the other
+shards themselves.
+
+67
+00:03:33,030 --> 00:03:36,540
+So shard three died
+for whatever reason.
+
+68
+00:03:36,540 --> 00:03:38,760
+The mongos will
+kill the operations
+
+69
+00:03:38,760 --> 00:03:41,760
+on the remaining shards
+so they don't keep
+
+70
+00:03:41,760 --> 00:03:44,940
+on running without purpose.
+
+71
+00:03:44,940 --> 00:03:49,140
+To recap, these two
+new features of 4.0
+
+72
+00:03:49,140 --> 00:03:51,750
+allow for a better
+traceability and debuggability
+
+73
+00:03:51,750 --> 00:03:55,260
+over the cluster
+through the mongos logs.
+
+74
+00:03:55,260 --> 00:03:58,740
+And provide an extended
+kill operational control
+
+75
+00:03:58,740 --> 00:04:02,090
+over long running operations
+by allowing to kill operations
+
+76
+00:04:02,090 --> 00:04:06,240
+across shards, either by the
+explicit command of killing
+
+77
+00:04:06,240 --> 00:04:10,350
+operations from the mongos
+or by the mongos itself
+
+78
+00:04:10,350 --> 00:04:14,400
+detecting that a given operation
+died in an individual shard
+
+79
+00:04:14,400 --> 00:04:18,060
+and killing all remaining
+affected shard operations
+
+80
+00:04:18,060 --> 00:04:20,046
+related with that operation.
+
+81
+00:04:20,046 --> 00:04:23,300
+All good stuff of MongoDB 4.0.

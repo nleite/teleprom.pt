@@ -1,0 +1,244 @@
+1
+00:00:00,000 --> 00:00:00,500
+
+
+2
+00:00:00,500 --> 00:00:03,670
+By design, MongoDB's
+transactions aggressively
+
+3
+00:00:03,670 --> 00:00:05,910
+abort to avoid
+deadlocking scenarios that
+
+4
+00:00:05,910 --> 00:00:08,240
+require manual intervention.
+
+5
+00:00:08,240 --> 00:00:11,700
+It's important that all
+applications against MongoDB
+
+6
+00:00:11,700 --> 00:00:13,740
+have the appropriate
+retry logic that
+
+7
+00:00:13,740 --> 00:00:16,950
+listens for the transient
+transaction error label that
+
+8
+00:00:16,950 --> 00:00:19,500
+exists for all errors
+where it's safe to retry
+
+9
+00:00:19,500 --> 00:00:23,160
+the entire transaction
+from the beginning.
+
+10
+00:00:23,160 --> 00:00:25,950
+Take a look at this example
+where we catch exceptions
+
+11
+00:00:25,950 --> 00:00:29,140
+on any statement
+within the transaction.
+
+12
+00:00:29,140 --> 00:00:31,570
+The label transient
+transaction error
+
+13
+00:00:31,570 --> 00:00:35,770
+covers errors like network
+failures or conflicts.
+
+14
+00:00:35,770 --> 00:00:39,490
+These are error classes that,
+if a transaction is to rerun,
+
+15
+00:00:39,490 --> 00:00:41,860
+could result in a
+successful commit.
+
+16
+00:00:41,860 --> 00:00:45,190
+Whereas parsing errors or
+transactions that are too large
+
+17
+00:00:45,190 --> 00:00:47,620
+will not have this
+label as re-running
+
+18
+00:00:47,620 --> 00:00:50,820
+could not lead to a
+successful commit.
+
+19
+00:00:50,820 --> 00:00:53,130
+While every statement
+can throw an exception
+
+20
+00:00:53,130 --> 00:00:55,560
+within a transaction,
+errors on commit
+
+21
+00:00:55,560 --> 00:00:58,100
+should be handled specially.
+
+22
+00:00:58,100 --> 00:01:01,340
+Take a look at our
+next example here.
+
+23
+00:01:01,340 --> 00:01:03,200
+The commit
+transaction command is
+
+24
+00:01:03,200 --> 00:01:05,450
+considered a retriable right.
+
+25
+00:01:05,450 --> 00:01:09,090
+The driver will automatically
+retry the commit transaction
+
+26
+00:01:09,090 --> 00:01:12,620
+once, after a retriable error.
+
+27
+00:01:12,620 --> 00:01:14,810
+Although this adds a
+layer of protection,
+
+28
+00:01:14,810 --> 00:01:17,840
+the drivers retry attempt
+of commit transaction
+
+29
+00:01:17,840 --> 00:01:20,900
+may, again, fail with
+a retriable error.
+
+30
+00:01:20,900 --> 00:01:23,810
+In that case, both the
+driver and the application
+
+31
+00:01:23,810 --> 00:01:26,770
+do not know the state
+of the transaction.
+
+32
+00:01:26,770 --> 00:01:30,190
+Here, we are listening for
+unknown transaction commit
+
+33
+00:01:30,190 --> 00:01:31,680
+results.
+
+34
+00:01:31,680 --> 00:01:33,820
+In our catch block,
+where we can continue
+
+35
+00:01:33,820 --> 00:01:37,450
+to commit if necessary until
+we know the transaction's
+
+36
+00:01:37,450 --> 00:01:38,920
+definitive status.
+
+37
+00:01:38,920 --> 00:01:42,460
+Or we can't implement
+backoff logic here.
+
+38
+00:01:42,460 --> 00:01:44,560
+If we continue to send
+commit, once there
+
+39
+00:01:44,560 --> 00:01:46,930
+is a reachable
+primary, we will get
+
+40
+00:01:46,930 --> 00:01:53,490
+a definitive commit transaction,
+or aborted transaction message.
+
+41
+00:01:53,490 --> 00:01:57,060
+Now, let's look at an example
+putting it all together.
+
+42
+00:01:57,060 --> 00:01:59,960
+This retry logic should be
+in all applications using
+
+43
+00:01:59,960 --> 00:02:01,710
+transactions, regardless
+of whether you're
+
+44
+00:02:01,710 --> 00:02:05,460
+building against MongoDB
+or relational systems.
+
+45
+00:02:05,460 --> 00:02:08,880
+Any transactional system could
+raise an error on commit,
+
+46
+00:02:08,880 --> 00:02:12,300
+for example, from a network
+blip leaving the transaction
+
+47
+00:02:12,300 --> 00:02:13,910
+in an unknown state.
+
+48
+00:02:13,910 --> 00:02:16,200
+And applications
+should be prepared
+
+49
+00:02:16,200 --> 00:02:18,430
+to handle these errors.
+
+50
+00:02:18,430 --> 00:02:23,180
+At MongoDB, we want you to build
+highly available applications
+
+51
+00:02:23,180 --> 00:02:26,020
+in line with best practices.

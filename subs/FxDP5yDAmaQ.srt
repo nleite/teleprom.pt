@@ -1,0 +1,221 @@
+1
+00:00:00,000 --> 00:00:00,800
+
+
+2
+00:00:00,800 --> 00:00:03,170
+With the document
+data model, MongoDB's
+
+3
+00:00:03,170 --> 00:00:06,140
+existing single document
+atomicity guarantees
+
+4
+00:00:06,140 --> 00:00:09,840
+can meet the data integrity
+needs of most applications.
+
+5
+00:00:09,840 --> 00:00:13,760
+In fact, we estimate 80%
+to 90% of applications
+
+6
+00:00:13,760 --> 00:00:16,920
+don't need multi-document
+transactions at all.
+
+7
+00:00:16,920 --> 00:00:19,280
+However, some developers
+have been conditioned
+
+8
+00:00:19,280 --> 00:00:21,860
+by 40 years of
+relational data modeling
+
+9
+00:00:21,860 --> 00:00:23,990
+to assume that multi-document
+transactions are
+
+10
+00:00:23,990 --> 00:00:27,870
+a requirement for any database
+irrespective of the data model
+
+11
+00:00:27,870 --> 00:00:29,600
+they are built upon.
+
+12
+00:00:29,600 --> 00:00:32,270
+Others are concerned that while
+multi-document transactions
+
+13
+00:00:32,270 --> 00:00:34,550
+aren't needed by their
+application today,
+
+14
+00:00:34,550 --> 00:00:36,610
+they might be in the future.
+
+15
+00:00:36,610 --> 00:00:39,590
+And for some workloads,
+support for ACID transactions
+
+16
+00:00:39,590 --> 00:00:43,350
+across multiple documents
+is a requirement.
+
+17
+00:00:43,350 --> 00:00:46,400
+There are use cases where
+transactional ACID guarantees
+
+18
+00:00:46,400 --> 00:00:52,390
+need to span a set of operations
+across multiple documents.
+
+19
+00:00:52,390 --> 00:00:55,150
+One example of this
+is with applications
+
+20
+00:00:55,150 --> 00:00:57,010
+that deal with the
+exchange of values
+
+21
+00:00:57,010 --> 00:00:59,170
+between different
+parties and require
+
+22
+00:00:59,170 --> 00:01:02,200
+all-or-nothing execution.
+
+23
+00:01:02,200 --> 00:01:05,349
+MongoDB already serves
+these use cases,
+
+24
+00:01:05,349 --> 00:01:08,230
+but the introduction of
+multi-document transactions
+
+25
+00:01:08,230 --> 00:01:10,790
+makes it even easier.
+
+26
+00:01:10,790 --> 00:01:13,690
+Before the availability of
+multi-document transactions,
+
+27
+00:01:13,690 --> 00:01:16,120
+you would need to
+programmatically set
+
+28
+00:01:16,120 --> 00:01:20,590
+transactional controls
+at the application tier.
+
+29
+00:01:20,590 --> 00:01:23,110
+These can add complexity
+that slows down
+
+30
+00:01:23,110 --> 00:01:25,940
+the rate of application
+development.
+
+31
+00:01:25,940 --> 00:01:28,460
+For MongoDB 4.0
+onwards, the database
+
+32
+00:01:28,460 --> 00:01:31,040
+automatically handles
+multi-document transactions
+
+33
+00:01:31,040 --> 00:01:32,720
+for you.
+
+34
+00:01:32,720 --> 00:01:34,790
+Adding transactions
+does not make MongoDB
+
+35
+00:01:34,790 --> 00:01:36,950
+a relational database, though.
+
+36
+00:01:36,950 --> 00:01:40,340
+All best practices relating
+to MongoDB data modeling
+
+37
+00:01:40,340 --> 00:01:43,610
+continue to apply when
+using multi-document ACID
+
+38
+00:01:43,610 --> 00:01:46,490
+transactions, or other
+relational type features,
+
+39
+00:01:46,490 --> 00:01:50,030
+such as fully expressive JOINS
+via the $lookup aggregation
+
+40
+00:01:50,030 --> 00:01:51,980
+pipeline stage.
+
+41
+00:01:51,980 --> 00:01:55,070
+Where practical, all data
+relating to an entity
+
+42
+00:01:55,070 --> 00:01:59,130
+should be stored in a single
+rich document structure.
+
+43
+00:01:59,130 --> 00:02:03,480
+Just moving data structured for
+relational tables into MongoDB
+
+44
+00:02:03,480 --> 00:02:05,370
+will not allow users
+to take advantage
+
+45
+00:02:05,370 --> 00:02:08,610
+of MongoDB's natural,
+fast, and flexible document
+
+46
+00:02:08,610 --> 00:02:13,280
+model or its distributed
+systems architecture.

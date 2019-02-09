@@ -1,0 +1,208 @@
+1
+00:00:00,000 --> 00:00:00,510
+
+
+2
+00:00:00,510 --> 00:00:02,460
+Creating long
+running transactions
+
+3
+00:00:02,460 --> 00:00:05,220
+or attempting to modify
+over 1,000 documents
+
+4
+00:00:05,220 --> 00:00:07,680
+in a single asset
+transaction can
+
+5
+00:00:07,680 --> 00:00:11,160
+result in a lot of
+WiredTiger cache pressure.
+
+6
+00:00:11,160 --> 00:00:14,910
+A snapshot must maintain state
+for all subsequent writes
+
+7
+00:00:14,910 --> 00:00:17,130
+since the snapshot was created.
+
+8
+00:00:17,130 --> 00:00:19,050
+Transactions use
+the same snapshot
+
+9
+00:00:19,050 --> 00:00:21,760
+throughout the duration
+of the transaction.
+
+10
+00:00:21,760 --> 00:00:25,470
+So if you have a large write
+volume and an old snapshot,
+
+11
+00:00:25,470 --> 00:00:28,770
+state cannot be cleaned up
+until the snapshot is killed.
+
+12
+00:00:28,770 --> 00:00:31,200
+This happens automatically
+when the transaction releases
+
+13
+00:00:31,200 --> 00:00:33,720
+their locks after a commit.
+
+14
+00:00:33,720 --> 00:00:37,470
+Or WiredTiger can proactively
+evict snapshots and abort
+
+15
+00:00:37,470 --> 00:00:41,280
+transactions if under
+enough cache pressure.
+
+16
+00:00:41,280 --> 00:00:43,800
+By default, MongoDB
+will automatically
+
+17
+00:00:43,800 --> 00:00:46,110
+abort any multi-document
+transaction
+
+18
+00:00:46,110 --> 00:00:49,170
+that runs for longer
+than 60 seconds.
+
+19
+00:00:49,170 --> 00:00:51,480
+When the transaction
+aborts, an exception
+
+20
+00:00:51,480 --> 00:00:53,670
+is returned to the driver,
+and the transaction
+
+21
+00:00:53,670 --> 00:00:55,860
+is fully rolled back.
+
+22
+00:00:55,860 --> 00:00:57,960
+To address this
+safeguard, the transaction
+
+23
+00:00:57,960 --> 00:01:01,290
+should be broken into smaller
+parts that allow execution
+
+24
+00:01:01,290 --> 00:01:04,510
+within this
+configured time limit.
+
+25
+00:01:04,510 --> 00:01:06,340
+There are no practical
+limits on the number
+
+26
+00:01:06,340 --> 00:01:08,980
+of documents that can be
+read within a transaction.
+
+27
+00:01:08,980 --> 00:01:12,550
+But as a best practice, no
+more than 1,000 documents
+
+28
+00:01:12,550 --> 00:01:15,610
+should be modified
+within the transaction.
+
+29
+00:01:15,610 --> 00:01:18,550
+For operations that need to
+modify more than this limit,
+
+30
+00:01:18,550 --> 00:01:20,770
+developers should
+break the transactions
+
+31
+00:01:20,770 --> 00:01:25,030
+into separate parts that
+process documents in batches.
+
+32
+00:01:25,030 --> 00:01:28,120
+Developers should add
+application logic that catch
+
+33
+00:01:28,120 --> 00:01:30,400
+and retry a
+transaction that aborts
+
+34
+00:01:30,400 --> 00:01:34,060
+due to a temporary exception,
+such as the transient network
+
+35
+00:01:34,060 --> 00:01:36,840
+error or an election.
+
+36
+00:01:36,840 --> 00:01:38,880
+With the retryable
+writes foundation,
+
+37
+00:01:38,880 --> 00:01:41,160
+the MongoDB drivers
+will automatically
+
+38
+00:01:41,160 --> 00:01:45,470
+retry the commit statement
+of a transaction.
+
+39
+00:01:45,470 --> 00:01:49,370
+DDL operations, like create
+index or drop collections,
+
+40
+00:01:49,370 --> 00:01:54,050
+block behind all active running
+transactions on that namespace.
+
+41
+00:01:54,050 --> 00:01:56,660
+And if a DDL
+operation is running
+
+42
+00:01:56,660 --> 00:01:59,540
+and a new transaction is
+unable to obtain a lock,
+
+43
+00:01:59,540 --> 00:02:01,990
+the transaction will abort.

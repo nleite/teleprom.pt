@@ -1,0 +1,206 @@
+1
+00:00:00,000 --> 00:00:00,499
+
+
+2
+00:00:00,499 --> 00:00:03,230
+Now that we've welcomed you to
+the course, let's talk shop.
+
+3
+00:00:03,230 --> 00:00:05,500
+Let's go through the
+logistics necessary for
+
+4
+00:00:05,500 --> 00:00:08,300
+your successful M040 journey.
+
+5
+00:00:08,300 --> 00:00:10,640
+In this course, you'll
+find a set of lectures.
+
+6
+00:00:10,640 --> 00:00:12,260
+In each lecture,
+you'll find a quiz
+
+7
+00:00:12,260 --> 00:00:14,480
+to test your understanding
+of the [? exposed ?] topic
+
+8
+00:00:14,480 --> 00:00:15,560
+or feature.
+
+9
+00:00:15,560 --> 00:00:17,570
+The quizzes are not graded.
+
+10
+00:00:17,570 --> 00:00:20,200
+We will not be accounting
+for that in your final course
+
+11
+00:00:20,200 --> 00:00:21,360
+grade.
+
+12
+00:00:21,360 --> 00:00:23,920
+In each chapter, aside
+from the lecture,
+
+13
+00:00:23,920 --> 00:00:26,000
+you will find labs and homework.
+
+14
+00:00:26,000 --> 00:00:29,690
+By the way, we use those
+terms interchangeably.
+
+15
+00:00:29,690 --> 00:00:32,810
+These are graded and count
+towards your final grade.
+
+16
+00:00:32,810 --> 00:00:35,240
+And finally, we
+have the final exam,
+
+17
+00:00:35,240 --> 00:00:38,120
+where we are going to go
+through a set of exercises,
+
+18
+00:00:38,120 --> 00:00:42,180
+exam-like questions, that will
+count towards your final grade.
+
+19
+00:00:42,180 --> 00:00:43,850
+The specifics of
+the grading policy
+
+20
+00:00:43,850 --> 00:00:46,370
+are described in this
+video lecture notes.
+
+21
+00:00:46,370 --> 00:00:49,520
+To help you out throughout
+the lecture videos and labs,
+
+22
+00:00:49,520 --> 00:00:51,830
+we will provide you handout
+materials and lecture
+
+23
+00:00:51,830 --> 00:00:53,360
+notes that will
+contain all commands
+
+24
+00:00:53,360 --> 00:00:56,630
+and environmental variables
+used in the videos.
+
+25
+00:00:56,630 --> 00:00:59,360
+As part of those
+handouts, we provide
+
+26
+00:00:59,360 --> 00:01:02,690
+a Vagrant virtual machine with
+all the necessary requirements
+
+27
+00:01:02,690 --> 00:01:05,360
+and dependencies installed
+so you can follow along
+
+28
+00:01:05,360 --> 00:01:08,390
+with the demonstrations
+and lab exercises.
+
+29
+00:01:08,390 --> 00:01:11,330
+The virtual environment is
+here for your convenience.
+
+30
+00:01:11,330 --> 00:01:13,790
+It helps us standardize
+a learning environment
+
+31
+00:01:13,790 --> 00:01:17,090
+and allow you to have a clean
+environment to play with.
+
+32
+00:01:17,090 --> 00:01:19,490
+We recommend you use
+that for all labs.
+
+33
+00:01:19,490 --> 00:01:21,290
+However, that is not mandatory.
+
+34
+00:01:21,290 --> 00:01:23,180
+If you wish to install
+all the material
+
+35
+00:01:23,180 --> 00:01:26,340
+in your own environment,
+that's totally fine, as well.
+
+36
+00:01:26,340 --> 00:01:29,720
+But remember, there might be
+some external dependencies
+
+37
+00:01:29,720 --> 00:01:31,970
+you will have to
+have installed to be
+
+38
+00:01:31,970 --> 00:01:35,330
+able to follow through
+the labs and the lectures.
+
+39
+00:01:35,330 --> 00:01:36,860
+At the end of this
+course, you will
+
+40
+00:01:36,860 --> 00:01:40,520
+be able to download a completion
+certificate so that you
+
+41
+00:01:40,520 --> 00:01:43,110
+can brag about it with
+your friends and family,
+
+42
+00:01:43,110 --> 00:01:44,540
+which is great.
+
+43
+00:01:44,540 --> 00:01:48,490
+With all that said, buckle
+up, and enjoy the course.

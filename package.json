@@ -1,0 +1,32 @@
+{
+  "name": "teleprom.pt",
+  "version": "1.0.0",
+  "description": "Simple demo app for subtitle file rendering into text",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nleite/teleprom.pt.git"
+  },
+  "keywords": [
+    "subtitles",
+    "parsing",
+    "rendering",
+    "streaming"
+  ],
+  "author": "nleite",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/nleite/teleprom.pt/issues"
+  },
+  "homepage": "https://github.com/nleite/teleprom.pt#readme",
+  "dependencies": {
+    "subtitles-parser": "0.0.2",
+    "yargs": "^12.0.5"
+  },
+  "bin": {
+    "teleprom.pt": "./index.js"
+  }
+}

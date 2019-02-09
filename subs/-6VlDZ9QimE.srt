@@ -1,0 +1,651 @@
+1
+00:00:00,000 --> 00:00:00,670
+
+
+2
+00:00:00,670 --> 00:00:02,460
+Change streams is a
+recent functionality
+
+3
+00:00:02,460 --> 00:00:05,640
+that we've added to MongoDB 3.6.
+
+4
+00:00:05,640 --> 00:00:08,610
+It allows developers
+to integrate and build
+
+5
+00:00:08,610 --> 00:00:11,640
+applications that
+rely on notifications
+
+6
+00:00:11,640 --> 00:00:15,150
+and can get the
+stream-of-data changes that
+
+7
+00:00:15,150 --> 00:00:17,700
+happen in the database.
+
+8
+00:00:17,700 --> 00:00:19,380
+There's several
+different use cases
+
+9
+00:00:19,380 --> 00:00:22,080
+that we can implement using
+change streams, notification
+
+10
+00:00:22,080 --> 00:00:24,780
+engines, data migration
+and synchronization,
+
+11
+00:00:24,780 --> 00:00:26,700
+continuous data
+integration tools,
+
+12
+00:00:26,700 --> 00:00:28,410
+and filtered replication.
+
+13
+00:00:28,410 --> 00:00:30,080
+All good stuff.
+
+14
+00:00:30,080 --> 00:00:31,830
+In this lesson, we are
+going to be looking
+
+15
+00:00:31,830 --> 00:00:36,390
+through the list of improvements
+added in 4.0 that make change
+
+16
+00:00:36,390 --> 00:00:39,600
+streams even more fantastic.
+
+17
+00:00:39,600 --> 00:00:42,780
+First, we start with
+one of my favorites,
+
+18
+00:00:42,780 --> 00:00:45,300
+opening a change stream
+to listen to changes
+
+19
+00:00:45,300 --> 00:00:49,030
+on the database level.
+
+20
+00:00:49,030 --> 00:00:53,970
+So if I go into this
+database of mine, M040,
+
+21
+00:00:53,970 --> 00:00:56,820
+and list for the collections,
+I will have a bunch
+
+22
+00:00:56,820 --> 00:00:58,230
+of different collections.
+
+23
+00:00:58,230 --> 00:00:58,980
+Well, not bunch.
+
+24
+00:00:58,980 --> 00:01:00,297
+A few.
+
+25
+00:01:00,297 --> 00:01:02,130
+If I would like to see
+all inserts happening
+
+26
+00:01:02,130 --> 00:01:05,160
+to any of the
+existing collections,
+
+27
+00:01:05,160 --> 00:01:08,880
+I could open up a change stream
+to the individual collection,
+
+28
+00:01:08,880 --> 00:01:11,790
+which requires me to know the
+collection names ahead of time,
+
+29
+00:01:11,790 --> 00:01:15,660
+and obviously the database name,
+which is fine for most cases
+
+30
+00:01:15,660 --> 00:01:18,630
+because the databases generally
+know which namespaces,
+
+31
+00:01:18,630 --> 00:01:21,380
+databases, and collections
+we want to watch
+
+32
+00:01:21,380 --> 00:01:24,000
+or want to interact with.
+
+33
+00:01:24,000 --> 00:01:28,440
+And open a change stream to
+each one of those collections.
+
+34
+00:01:28,440 --> 00:01:31,050
+Now again, this is
+pretty straightforward
+
+35
+00:01:31,050 --> 00:01:35,760
+once I know the exact
+names of collections
+
+36
+00:01:35,760 --> 00:01:38,100
+that I want to listen to.
+
+37
+00:01:38,100 --> 00:01:41,700
+But let's say that I have a very
+dynamic system where I really
+
+38
+00:01:41,700 --> 00:01:46,350
+don't know the exact
+collection that is setting up.
+
+39
+00:01:46,350 --> 00:01:50,340
+What I do have is some
+sort of database door
+
+40
+00:01:50,340 --> 00:01:55,080
+constant incremental collection
+that will vary constantly
+
+41
+00:01:55,080 --> 00:01:58,680
+throughout either the execution
+of a single application
+
+42
+00:01:58,680 --> 00:02:01,800
+or due to the fact
+that that's the logic
+
+43
+00:02:01,800 --> 00:02:04,830
+that the database implements.
+
+44
+00:02:04,830 --> 00:02:08,880
+I could [INAUDIBLE] I could
+list all collection names,
+
+45
+00:02:08,880 --> 00:02:13,260
+and append some sort
+of watch command,
+
+46
+00:02:13,260 --> 00:02:17,010
+and this becomes
+very, very tricky.
+
+47
+00:02:17,010 --> 00:02:19,380
+Or on the other hand,
+it would be awesome
+
+48
+00:02:19,380 --> 00:02:22,680
+if I can just open
+a change stream that
+
+49
+00:02:22,680 --> 00:02:25,800
+will listen to any
+change happening
+
+50
+00:02:25,800 --> 00:02:29,680
+on any namespace
+within that database.
+
+51
+00:02:29,680 --> 00:02:33,870
+And that's exactly what
+MongoDB 4.0 allows.
+
+52
+00:02:33,870 --> 00:02:37,130
+We can just run the
+DB.watch command
+
+53
+00:02:37,130 --> 00:02:40,350
+and we'll get a constant
+stream of changes
+
+54
+00:02:40,350 --> 00:02:43,620
+happening regardless
+of the collection they
+
+55
+00:02:43,620 --> 00:02:46,340
+are happening against.
+
+56
+00:02:46,340 --> 00:02:47,280
+That's pretty cool.
+
+57
+00:02:47,280 --> 00:02:50,220
+What if we extrapolate
+that behavior
+
+58
+00:02:50,220 --> 00:02:54,390
+over a single set of collections
+that might change constantly
+
+59
+00:02:54,390 --> 00:02:58,890
+over time to multiple
+different databases?
+
+60
+00:02:58,890 --> 00:03:02,790
+Not only we have dynamic
+creation of collections
+
+61
+00:03:02,790 --> 00:03:08,190
+but it's also dynamic creation
+of databases themselves.
+
+62
+00:03:08,190 --> 00:03:11,550
+That's what we can also do
+with MongoDB 4.0, which have
+
+63
+00:03:11,550 --> 00:03:15,570
+a cluster-level change stream.
+
+64
+00:03:15,570 --> 00:03:19,770
+And to do that what we would
+need to do from the shell
+
+65
+00:03:19,770 --> 00:03:25,320
+is just use Mongo
+or getMongo.watch.
+
+66
+00:03:25,320 --> 00:03:31,380
+This one will allow us to get
+a full cluster view of changes
+
+67
+00:03:31,380 --> 00:03:35,580
+that are happening cluster-wide
+regardless of the database
+
+68
+00:03:35,580 --> 00:03:38,130
+and regardless of the
+collections that are being
+
+69
+00:03:38,130 --> 00:03:40,370
+changed at each point in time.
+
+70
+00:03:40,370 --> 00:03:45,840
+Again, don't use the shell
+example too much because,
+
+71
+00:03:45,840 --> 00:03:48,330
+to exemplify its change
+stream, the shell
+
+72
+00:03:48,330 --> 00:03:49,890
+is a poor man's alternative.
+
+73
+00:03:49,890 --> 00:03:51,930
+For a full experience,
+you need to use a driver
+
+74
+00:03:51,930 --> 00:03:54,200
+in your preferred language.
+
+75
+00:03:54,200 --> 00:03:56,610
+However, the shell does
+come with those necessary
+
+76
+00:03:56,610 --> 00:03:59,280
+helps to do the job.
+
+77
+00:03:59,280 --> 00:04:02,590
+Note that to enable change
+streams across the cluster,
+
+78
+00:04:02,590 --> 00:04:06,110
+the change stream needs to
+be opened against admin.
+
+79
+00:04:06,110 --> 00:04:09,830
+Now to collect all
+collections changes that
+
+80
+00:04:09,830 --> 00:04:12,030
+are happening on
+a single database,
+
+81
+00:04:12,030 --> 00:04:15,770
+the command needs to run
+with aggregate equals 1.
+
+82
+00:04:15,770 --> 00:04:18,440
+And to get the full
+view of changes
+
+83
+00:04:18,440 --> 00:04:21,589
+for a cluster, that requires
+that the change stream
+
+84
+00:04:21,589 --> 00:04:25,550
+attributes will need to
+be set with an option
+
+85
+00:04:25,550 --> 00:04:28,250
+allChangesForCluster
+equals true.
+
+86
+00:04:28,250 --> 00:04:32,570
+Last but not the least, we've
+added a new change stream
+
+87
+00:04:32,570 --> 00:04:36,170
+comment argument called
+startAtOperationTime.
+
+88
+00:04:36,170 --> 00:04:40,210
+StartAtOperationTime will take
+a valid cluster time value
+
+89
+00:04:40,210 --> 00:04:43,940
+and needs to be set on
+every changeStream command.
+
+90
+00:04:43,940 --> 00:04:45,080
+No worries.
+
+91
+00:04:45,080 --> 00:04:48,830
+The 4.0 drivers provide
+this by default.
+
+92
+00:04:48,830 --> 00:04:52,160
+You do not need to
+find a valid cluster
+
+93
+00:04:52,160 --> 00:04:55,250
+time to set in your command.
+
+94
+00:04:55,250 --> 00:04:57,760
+But this allows a cluster
+to start notifying changes
+
+95
+00:04:57,760 --> 00:05:00,380
+immediately after the
+provided cluster time
+
+96
+00:05:00,380 --> 00:05:03,410
+without requiring the server
+that is serving the change
+
+97
+00:05:03,410 --> 00:05:07,310
+stream to get its first change
+to basically return back
+
+98
+00:05:07,310 --> 00:05:08,700
+in your results.
+
+99
+00:05:08,700 --> 00:05:11,750
+Let's look into
+this simple diagram.
+
+100
+00:05:11,750 --> 00:05:14,525
+My application
+opens up against A,
+
+101
+00:05:14,525 --> 00:05:17,450
+the database, a
+change stream with
+
+102
+00:05:17,450 --> 00:05:19,850
+a particular
+startAtOperationTime
+
+103
+00:05:19,850 --> 00:05:22,000
+equals t10.
+
+104
+00:05:22,000 --> 00:05:29,540
+In my oplog, if t10 is
+available, or any document
+
+105
+00:05:29,540 --> 00:05:32,420
+that has been
+applied in the oplog
+
+106
+00:05:32,420 --> 00:05:35,390
+after t10 and t10
+inclusive, will
+
+107
+00:05:35,390 --> 00:05:41,200
+be returned regardless if the
+change stream was open at t14.
+
+108
+00:05:41,200 --> 00:05:43,840
+Any cluster time will
+be accepted as long
+
+109
+00:05:43,840 --> 00:05:48,460
+it is not older than the
+oldest entry in your oplog.
+
+110
+00:05:48,460 --> 00:05:52,000
+So if instead of t10,
+we would be using t8.
+
+111
+00:05:52,000 --> 00:05:54,430
+Since that would
+not be in our oplog,
+
+112
+00:05:54,430 --> 00:05:56,470
+that could not be returned.
+
+113
+00:05:56,470 --> 00:05:58,270
+Finally, I just
+want to highlight
+
+114
+00:05:58,270 --> 00:06:02,230
+that changeStream event messages
+now return in operations
+
+115
+00:06:02,230 --> 00:06:08,440
+originated by a transaction two
+new fields, transaction number
+
+116
+00:06:08,440 --> 00:06:11,990
+and logical session ID.
+
+117
+00:06:11,990 --> 00:06:14,950
+The transaction number
+is a top-level field
+
+118
+00:06:14,950 --> 00:06:18,140
+that is equal to the
+top-level oplog entry.
+
+119
+00:06:18,140 --> 00:06:21,100
+This [INAUDIBLE] refers to
+the number of transactions
+
+120
+00:06:21,100 --> 00:06:23,080
+that happen within a session.
+
+121
+00:06:23,080 --> 00:06:26,770
+And the logical session
+ID corresponds again
+
+122
+00:06:26,770 --> 00:06:28,900
+to the logical
+session ID that is
+
+123
+00:06:28,900 --> 00:06:33,850
+present in the oplog that
+affects the change reported
+
+124
+00:06:33,850 --> 00:06:35,190
+by the change stream.
+
+125
+00:06:35,190 --> 00:06:37,360
+To recap really
+quickly, we can now
+
+126
+00:06:37,360 --> 00:06:39,970
+open change streams
+to listen to cluster
+
+127
+00:06:39,970 --> 00:06:42,370
+and database-level changes.
+
+128
+00:06:42,370 --> 00:06:45,640
+We can also specify a
+startAtOperationTime,
+
+129
+00:06:45,640 --> 00:06:48,280
+which allow the
+application to get events
+
+130
+00:06:48,280 --> 00:06:51,714
+prior to the point where the
+change stream has been opened
+
+131
+00:06:51,714 --> 00:06:53,380
+and avoiding waiting
+for the first event
+
+132
+00:06:53,380 --> 00:06:56,320
+to reach the server to
+start notifying events back
+
+133
+00:06:56,320 --> 00:06:57,820
+to the client.
+
+134
+00:06:57,820 --> 00:07:00,490
+A small syntax changes in
+the change event document
+
+135
+00:07:00,490 --> 00:07:02,990
+that allows us to track down
+transaction information related
+
+136
+00:07:02,990 --> 00:07:04,679
+to the reported changes.
+
+137
+00:07:04,679 --> 00:07:05,179

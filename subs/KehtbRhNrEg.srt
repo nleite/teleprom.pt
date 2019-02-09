@@ -1,0 +1,556 @@
+1
+00:00:00,000 --> 00:00:00,500
+
+
+2
+00:00:00,500 --> 00:00:03,740
+Greetings, my name
+is Grigori Melnik.
+
+3
+00:00:03,740 --> 00:00:06,620
+I'm the head of product
+for server and tools,
+
+4
+00:00:06,620 --> 00:00:10,210
+including Compass, our
+intuitive GUI from MongoDB.
+
+5
+00:00:10,210 --> 00:00:12,640
+Many of you are already
+familiar with Compass.
+
+6
+00:00:12,640 --> 00:00:14,590
+But for those who
+are not, I encourage
+
+7
+00:00:14,590 --> 00:00:16,480
+you to download it
+right away, and see
+
+8
+00:00:16,480 --> 00:00:19,760
+how it can help you explore
+and manipulate the data,
+
+9
+00:00:19,760 --> 00:00:23,380
+as well as to build powerful
+queries, including Geo queries.
+
+10
+00:00:23,380 --> 00:00:27,850
+Seriously, pause right now,
+go to MongoDB Download Center,
+
+11
+00:00:27,850 --> 00:00:30,040
+and grab the latest
+version of Compass.
+
+12
+00:00:30,040 --> 00:00:33,490
+See the notes below for a
+link to the Download Center.
+
+13
+00:00:33,490 --> 00:00:35,830
+Compass is packed
+with useful features
+
+14
+00:00:35,830 --> 00:00:39,040
+to help you be even more
+productive with MongoDB.
+
+15
+00:00:39,040 --> 00:00:40,750
+Through the schema
+visualizer, you
+
+16
+00:00:40,750 --> 00:00:43,390
+can understand the
+frequency, types, and ranges
+
+17
+00:00:43,390 --> 00:00:45,310
+of fields in your data set.
+
+18
+00:00:45,310 --> 00:00:48,700
+Compass also offers you a view
+into key server performance
+
+19
+00:00:48,700 --> 00:00:50,950
+metrics so you can
+easily understand
+
+20
+00:00:50,950 --> 00:00:53,340
+your most active collections.
+
+21
+00:00:53,340 --> 00:00:55,620
+With visual explained
+plans, you can
+
+22
+00:00:55,620 --> 00:00:57,200
+investigate how
+queries are running
+
+23
+00:00:57,200 --> 00:00:59,320
+and resolve performance issues.
+
+24
+00:00:59,320 --> 00:01:02,310
+You can also view and create
+document validation rules
+
+25
+00:01:02,310 --> 00:01:05,160
+as well as perform a
+rudimentary index management,
+
+26
+00:01:05,160 --> 00:01:07,800
+reviewing the types and
+size of your indices,
+
+27
+00:01:07,800 --> 00:01:10,980
+their utilization, and being
+able to add or remove indices
+
+28
+00:01:10,980 --> 00:01:13,050
+at the click of a button.
+
+29
+00:01:13,050 --> 00:01:16,290
+In the past six months, the team
+has introduced several highly
+
+30
+00:01:16,290 --> 00:01:18,150
+anticipated features.
+
+31
+00:01:18,150 --> 00:01:19,540
+Here are the highlights.
+
+32
+00:01:19,540 --> 00:01:23,340
+First stop is the
+aggregation pipeline builder.
+
+33
+00:01:23,340 --> 00:01:26,430
+The aggregation framework is
+one of the most powerful MongoDB
+
+34
+00:01:26,430 --> 00:01:28,650
+tools at your disposal.
+
+35
+00:01:28,650 --> 00:01:31,650
+Built on the concept of
+data process and pipelines,
+
+36
+00:01:31,650 --> 00:01:34,800
+like Unix or in PowerShell,
+the aggregation framework
+
+37
+00:01:34,800 --> 00:01:36,840
+lets users funnel
+their documents
+
+38
+00:01:36,840 --> 00:01:40,800
+through a multi-stage pipeline
+that filters, transforms,
+
+39
+00:01:40,800 --> 00:01:44,466
+sorts, computes, aggregates
+your data, and more.
+
+40
+00:01:44,466 --> 00:01:45,840
+The aggregation
+framework enables
+
+41
+00:01:45,840 --> 00:01:48,060
+you to perform
+extensive analytics
+
+42
+00:01:48,060 --> 00:01:50,370
+and statistical
+analysis in real time
+
+43
+00:01:50,370 --> 00:01:54,390
+and generate pre-aggregated
+reports for dashboard.
+
+44
+00:01:54,390 --> 00:01:56,970
+To help you be even more
+successful with the aggregation
+
+45
+00:01:56,970 --> 00:02:01,200
+framework, we've decided to
+build a user interface for it.
+
+46
+00:02:01,200 --> 00:02:04,490
+And that's what the aggregation
+pipeline builder is.
+
+47
+00:02:04,490 --> 00:02:07,850
+With its intuitive drag and drop
+experience and code skeletons,
+
+48
+00:02:07,850 --> 00:02:11,720
+there is no need to worry about
+bracket matching, reordering
+
+49
+00:02:11,720 --> 00:02:15,080
+stages, or remembering
+operator syntax.
+
+50
+00:02:15,080 --> 00:02:17,630
+And of course, you also
+get auto completion
+
+51
+00:02:17,630 --> 00:02:20,960
+for aggregation operators,
+query operators, and even
+
+52
+00:02:20,960 --> 00:02:23,270
+document field names.
+
+53
+00:02:23,270 --> 00:02:25,100
+If you're authoring
+your pipeline,
+
+54
+00:02:25,100 --> 00:02:27,380
+you can easily
+preview the results.
+
+55
+00:02:27,380 --> 00:02:31,150
+This, in combination with the
+ability to rearrange and toggle
+
+56
+00:02:31,150 --> 00:02:36,470
+stages on and off, make it easy
+to troubleshoot your pipeline.
+
+57
+00:02:36,470 --> 00:02:38,210
+When you are satisfied
+with the results,
+
+58
+00:02:38,210 --> 00:02:39,980
+the constructed
+pipeline can be copied
+
+59
+00:02:39,980 --> 00:02:42,990
+into the clipboard for easy
+pasting into your code,
+
+60
+00:02:42,990 --> 00:02:46,910
+or simply saved in your
+favorites list for reuse later.
+
+61
+00:02:46,910 --> 00:02:50,450
+Also, we have added an ability
+to import and export data
+
+62
+00:02:50,450 --> 00:02:54,950
+to and from your collections
+in JSON or CSV formats.
+
+63
+00:02:54,950 --> 00:02:57,290
+This has been one of the
+most consistently requested
+
+64
+00:02:57,290 --> 00:03:00,530
+features, and we're very happy
+to deliver it in this release.
+
+65
+00:03:00,530 --> 00:03:02,220
+You're welcome.
+
+66
+00:03:02,220 --> 00:03:04,270
+Additionally, we have
+refactored the Connect
+
+67
+00:03:04,270 --> 00:03:10,632
+dialog, making it more robust
+and supporting the SRV records.
+
+68
+00:03:10,632 --> 00:03:12,090
+There are two
+additional highlights
+
+69
+00:03:12,090 --> 00:03:13,650
+that I should also mention.
+
+70
+00:03:13,650 --> 00:03:16,550
+The first is the new
+expert to language function
+
+71
+00:03:16,550 --> 00:03:18,210
+we've included in Compass.
+
+72
+00:03:18,210 --> 00:03:20,630
+This provides the
+ability to convert
+
+73
+00:03:20,630 --> 00:03:22,890
+your queries and
+aggregation pipelines
+
+74
+00:03:22,890 --> 00:03:25,500
+into Compass, to
+the code in drivers
+
+75
+00:03:25,500 --> 00:03:27,600
+language of your choice.
+
+76
+00:03:27,600 --> 00:03:32,070
+Initially JavaScript, Java,
+Python, and C#, are supported.
+
+77
+00:03:32,070 --> 00:03:33,690
+But you can expect
+us to roll out
+
+78
+00:03:33,690 --> 00:03:36,120
+other languages pretty soon.
+
+79
+00:03:36,120 --> 00:03:39,540
+The second is that we have also
+introduced two new editions
+
+80
+00:03:39,540 --> 00:03:43,760
+of Compass, the Isolated edition
+and the Read-only the edition.
+
+81
+00:03:43,760 --> 00:03:46,650
+The isolated edition targets
+regulated industries.
+
+82
+00:03:46,650 --> 00:03:50,280
+It restricts network requests
+to TLS-encrypted TCP connections
+
+83
+00:03:50,280 --> 00:03:53,160
+to the server chosen
+on the Connect screen.
+
+84
+00:03:53,160 --> 00:03:55,110
+All other outbound
+connections are not
+
+85
+00:03:55,110 --> 00:03:56,580
+permitted in this edition.
+
+86
+00:03:56,580 --> 00:03:58,690
+So it doesn't pull
+any automatic updates,
+
+87
+00:03:58,690 --> 00:04:02,890
+it doesn't send any telemetry,
+or crash report into MongoDB.
+
+88
+00:04:02,890 --> 00:04:06,120
+Map rendering in the schema
+view is also unavailable.
+
+89
+00:04:06,120 --> 00:04:08,070
+And you won't be able
+to take advantage
+
+90
+00:04:08,070 --> 00:04:10,760
+of the in-product
+live support system.
+
+91
+00:04:10,760 --> 00:04:14,150
+The read-only the version
+limits certain CRUD operations
+
+92
+00:04:14,150 --> 00:04:15,810
+within your organization.
+
+93
+00:04:15,810 --> 00:04:19,279
+Users are limited strictly
+to read operations.
+
+94
+00:04:19,279 --> 00:04:21,740
+All other functionality
+remains pretty much the same
+
+95
+00:04:21,740 --> 00:04:24,860
+as in the standard
+MongoDB Compass.
+
+96
+00:04:24,860 --> 00:04:26,910
+We thrive on your feedback.
+
+97
+00:04:26,910 --> 00:04:29,720
+Compass release cadence
+is every two weeks.
+
+98
+00:04:29,720 --> 00:04:32,780
+And I'd like to encourage you to
+send us your feedback, and not
+
+99
+00:04:32,780 --> 00:04:35,930
+only with issues and screams,
+but also kudos and success
+
+100
+00:04:35,930 --> 00:04:37,400
+stories.
+
+101
+00:04:37,400 --> 00:04:39,650
+Also, don't forget
+about the Plug-in
+
+102
+00:04:39,650 --> 00:04:42,200
+API we've exposed last year.
+
+103
+00:04:42,200 --> 00:04:44,690
+Build your extensions
+and plugins for Compass
+
+104
+00:04:44,690 --> 00:04:47,300
+and share them with the
+rest of the community.
+
+105
+00:04:47,300 --> 00:04:48,770
+Send us the links
+to your plugins,
+
+106
+00:04:48,770 --> 00:04:52,130
+and we'll profile them on
+the community plugin page.
+
+107
+00:04:52,130 --> 00:04:53,300
+And there you have it.
+
+108
+00:04:53,300 --> 00:04:56,090
+We're expanding the
+capabilities of MongoDB Compass
+
+109
+00:04:56,090 --> 00:04:58,620
+to make you even
+more productive.
+
+110
+00:04:58,620 --> 00:05:00,620
+Next in this module,
+you will learn
+
+111
+00:05:00,620 --> 00:05:03,460
+how Compass is evolving from
+the data exploration tool
+
+112
+00:05:03,460 --> 00:05:06,600
+to more IDE-like authoring tool.
+
+113
+00:05:06,600 --> 00:05:08,420
+You'll learn how
+it can assist you
+
+114
+00:05:08,420 --> 00:05:12,050
+in building and troubleshooting
+powerful aggregations.
+
+115
+00:05:12,050 --> 00:05:13,250
+Happy aggregating.
+
+116
+00:05:13,250 --> 00:05:15,130
+Happy coding.
