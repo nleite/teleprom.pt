@@ -5,7 +5,7 @@ teleprom.pt
 Serving subtitles since *2019*
 ------------------------------
 
-``teleprom.pt`` is a simple localhost TCP server that serves the content of of
+``teleprom.pt`` is a simple localhost TCP server that serves the content of
 ``.srt`` files via the network.
 
 This is a sample text streaming server for `MongoDB.local events <https://www.mongodb.com/local>`_
@@ -41,7 +41,7 @@ Build
 Examples
 --------
 
-**1**: Serve file subs/BbY0MfzfXhQ.srt and receive the results using netcat
+**1**: Serve file ``subs/BbY0MfzfXhQ.srt`` and receive the results using netcat
 
 * Start server on port **3999** (default) and set file ``subs/BbY0MfzfXhQ.srt``
 
